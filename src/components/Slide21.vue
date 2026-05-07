@@ -10,13 +10,13 @@
         src="/114-1.png"
         alt="資電工程組"
         class="img clickable-img"
-        @click="lightboxSrc = '/114-1.png'"
+        @click="lightboxSrc = './114-1.png'"
       />
       <img
         src="/114-2.png"
         alt="人工智慧工組"
         class="img clickable-img"
-        @click="lightboxSrc = '/114-2.png'"
+        @click="lightboxSrc = './114-2.png'"
       />
     </div>
     <div class="caption">資料來源：朝陽科技大學資訊工程系「課程規劃」</div>

@@ -18,7 +18,7 @@
       </div>
     </div>
     <ImageLightbox
-      :src="lightboxOpen ? '/D9.png' : null"
+      :src="lightboxOpen ? './D9.png' : null"
       alt="薪資分布圖 D1-D9"
       @close="lightboxOpen = false"
     />
