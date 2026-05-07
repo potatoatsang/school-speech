@@ -11,11 +11,11 @@
         <span>我的口袋名單</span>
       </nav>
       <div class="nf-header-right">
-        <svg class="nf-icon" viewBox="0 0 24 24" fill="white">
+        <!-- <svg class="nf-icon" viewBox="0 0 24 24" fill="white">
           <path
             d="M15.5 14h-.79l-.28-.27A6.47 6.47 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"
           />
-        </svg>
+        </svg> -->
         <div class="nf-avatar">C</div>
       </div>
     </header>
@@ -33,20 +33,20 @@
           AI 出現後，現在學的東西以後還有用嗎？
         </p>
         <div class="nf-hero-btns">
-          <button class="nf-btn-play" @click="$emit('play')">
+          <button class="nf-btn-play" @click="goPlayer()">
             <svg viewBox="0 0 24 24" fill="black">
               <path d="M8 5v14l11-7z" />
             </svg>
             播放
           </button>
-          <button class="nf-btn-info">
+          <!-- <button class="nf-btn-info">
             <svg viewBox="0 0 24 24" fill="white">
               <path
                 d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"
               />
             </svg>
             詳細資訊
-          </button>
+          </button> -->
         </div>
       </div>
     </section>
@@ -77,13 +77,13 @@
               <div class="nf-preview-actions">
                 <button
                   class="nf-preview-btn nf-preview-btn--play"
-                  @click="$emit('play')"
+                  @click="goPlayer()"
                 >
                   <svg viewBox="0 0 24 24" fill="black">
                     <path d="M8 5v14l11-7z" />
                   </svg>
                 </button>
-                <button class="nf-preview-btn">
+                <!-- <button class="nf-preview-btn">
                   <svg viewBox="0 0 24 24" fill="white">
                     <path d="M19 13H13v6h-2v-6H5v-2h6V5h2v6h6v2z" />
                   </svg>
@@ -97,7 +97,7 @@
                   <svg viewBox="0 0 24 24" fill="white">
                     <path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z" />
                   </svg>
-                </button>
+                </button> -->
               </div>
               <div class="nf-preview-meta">
                 <span class="nf-preview-match">98% 符合</span>
@@ -119,10 +119,14 @@
 
 <script setup>
 import { ref } from "vue";
+import { useRouter } from "vue-router";
 
-defineEmits(["play"]);
-
+const router = useRouter();
 const hovered = ref(false);
+
+function goPlayer() {
+  router.push("/player");
+}
 </script>
 
 <style scoped>

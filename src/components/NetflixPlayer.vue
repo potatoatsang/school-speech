@@ -23,7 +23,7 @@
         @mouseenter="onEnter"
         @mouseleave="onLeave"
       >
-        <button class="nfp-back-btn" @click="$emit('exit')">
+        <button class="nfp-back-btn" @click="goHome()">
           <svg viewBox="0 0 24 24" fill="white">
             <path
               d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"
@@ -76,7 +76,7 @@
               <button
                 class="nfp-ctrl-btn nfp-ctrl-btn--skip"
                 :disabled="current === 0"
-                @click="$emit('prev')"
+                @click="prev()"
                 title="上一頁"
               >
                 <svg viewBox="0 0 24 24" fill="white">
@@ -90,7 +90,7 @@
               <button
                 class="nfp-ctrl-btn nfp-ctrl-btn--skip"
                 :disabled="current === slides.length - 1"
-                @click="$emit('next')"
+                @click="next()"
                 title="下一頁"
               >
                 <svg viewBox="0 0 24 24" fill="white">
@@ -101,32 +101,32 @@
                 <span class="nfp-skip-label">下一頁</span>
               </button>
               <!-- Volume (decorative) -->
-              <button class="nfp-ctrl-btn" title="音量">
+              <!-- <button class="nfp-ctrl-btn" title="音量">
                 <svg viewBox="0 0 24 24" fill="white">
                   <path
                     d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"
                   />
                 </svg>
-              </button>
+              </button> -->
             </div>
 
             <div class="nfp-btn-right">
               <!-- Episodes (decorative) -->
-              <button class="nfp-ctrl-btn" title="章節">
+              <!-- <button class="nfp-ctrl-btn" title="章節">
                 <svg viewBox="0 0 24 24" fill="white">
                   <path
                     d="M4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6zm16-4H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-1 9H9V9h10v2zm-4 4H9v-2h6v2zm4-8H9V5h10v2z"
                   />
                 </svg>
-              </button>
+              </button> -->
               <!-- Subtitles (decorative) -->
-              <button class="nfp-ctrl-btn" title="字幕">
+              <!-- <button class="nfp-ctrl-btn" title="字幕">
                 <svg viewBox="0 0 24 24" fill="white">
                   <path
                     d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 14H4V6h16v12zM6 10h2v2H6zm0 4h8v2H6zm10 0h2v2h-2zm-6-4h8v2h-8z"
                   />
                 </svg>
-              </button>
+              </button> -->
               <!-- Fullscreen (decorative) -->
               <button class="nfp-ctrl-btn" title="全螢幕">
                 <svg viewBox="0 0 24 24" fill="white">
@@ -145,12 +145,51 @@
 
 <script setup>
 import { ref, computed, onMounted, onUnmounted } from "vue";
+import { useRouter } from "vue-router";
+import SlideOutline from "./SlideOutline.vue";
+import SlideChapter1 from "./SlideChapter1.vue";
+import Slide11 from "./Slide11.vue";
+import Slide13 from "./Slide13.vue";
+import Slide14 from "./Slide14.vue";
+import SlideChapter2 from "./SlideChapter2.vue";
+import Slide21 from "./Slide21.vue";
+import Slide22 from "./Slide22.vue";
+import Slide23 from "./Slide23.vue";
+import SlideChapter3 from "./SlideChapter3.vue";
+import Slide31 from "./Slide31.vue";
+import SlideEnding from "./SlideEnding.vue";
 
-const props = defineProps({
-  slides: { type: Array, required: true },
-  current: { type: Number, required: true },
-});
-const emit = defineEmits(["exit", "prev", "next"]);
+const router = useRouter();
+
+const slides = [
+  { component: SlideOutline, navLabel: "大綱" },
+  { component: SlideChapter1, navLabel: "第一章" },
+  { component: Slide11, navLabel: "1-1" },
+  { component: Slide13, navLabel: "1-2" },
+  { component: Slide14, navLabel: "1-3" },
+  { component: SlideChapter2, navLabel: "第二章" },
+  { component: Slide21, navLabel: "2-1" },
+  { component: Slide22, navLabel: "2-2" },
+  { component: Slide23, navLabel: "2-3" },
+  { component: SlideChapter3, navLabel: "第三章" },
+  { component: Slide31, navLabel: "3-1" },
+  { component: SlideEnding, navLabel: "結尾" },
+];
+
+const current = ref(0);
+
+function goTo(i) {
+  current.value = Math.max(0, Math.min(slides.length - 1, i));
+}
+function next() {
+  goTo(current.value + 1);
+}
+function prev() {
+  goTo(current.value - 1);
+}
+function goHome() {
+  router.push("/");
+}
 
 const controlsVisible = ref(false);
 let hideTimer = null;
@@ -174,8 +213,8 @@ function onTouchStart(e) {
 function onTouchEnd(e) {
   const deltaX = e.changedTouches[0].clientX - touchStartX.value;
   if (Math.abs(deltaX) > 50) {
-    if (deltaX < 0) emit("next");
-    else emit("prev");
+    if (deltaX < 0) next();
+    else prev();
   }
 }
 
@@ -189,28 +228,25 @@ function onLeave() {
   }, 200);
 }
 const progressPct = computed(() =>
-  props.slides.length <= 1
-    ? 0
-    : (props.current / (props.slides.length - 1)) * 100,
+  slides.length <= 1 ? 0 : (current.value / (slides.length - 1)) * 100,
 );
 
 function seekByClick(e) {
   const rect = e.currentTarget.getBoundingClientRect();
   const pct = (e.clientX - rect.left) / rect.width;
-  const target = Math.round(pct * (props.slides.length - 1));
-  // emit a seek event that App.vue handles
-  emit("seek", Math.max(0, Math.min(props.slides.length - 1, target)));
+  const target = Math.round(pct * (slides.length - 1));
+  goTo(target);
 }
 
 function onKey(e) {
   if (e.key === "ArrowRight" || e.key === "ArrowDown" || e.key === " ") {
     e.preventDefault();
-    emit("next");
+    next();
   } else if (e.key === "ArrowLeft" || e.key === "ArrowUp") {
     e.preventDefault();
-    emit("prev");
+    prev();
   } else if (e.key === "Escape") {
-    emit("exit");
+    goHome();
   }
 }
 onMounted(() => {
