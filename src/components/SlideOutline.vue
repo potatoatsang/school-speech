@@ -1,10 +1,9 @@
 <template>
-  <div class="slide outline-slide">
-    <div class="outline-inner">
-      <div class="outline-title-block">
-        <h2>演講大綱</h2>
-        <p>今天我們會走過三個章節</p>
-      </div>
+  <div class="slide outline-root">
+    <!-- 左 2/3：大綱內容 -->
+    <div class="outline-left">
+      <div class="slide-chapter-tag">大綱</div>
+      <h2 class="slide-title">今天我們會走過三個章節</h2>
       <div class="outline-chapters">
         <div
           v-for="(ch, i) in chapters"
@@ -12,10 +11,9 @@
           class="outline-chapter-card"
           :style="{ '--accent': ch.color }"
         >
-          <div class="oc-num">{{ `0${i + 1}` }}</div>
+          <div class="oc-header">{{ ch.title }}</div>
           <div class="oc-body">
-            <div class="oc-title">{{ ch.title }}</div>
-            <div class="oc-subtitle">{{ ch.subtitle }}</div>
+            <div class="oc-title">{{ ch.subtitle }}</div>
             <ul class="oc-points">
               <li v-for="(pt, j) in ch.points" :key="j">{{ pt }}</li>
             </ul>
@@ -23,58 +21,136 @@
         </div>
       </div>
     </div>
+    <!-- 右 1/3：滿版圖片 -->
+    <div class="outline-right">
+      <img src="/outline.png" alt="outline" class="outline-img" />
+    </div>
   </div>
 </template>
 
 <script setup>
 const chapters = [
   {
-    title: '第一章：開始之前',
-    subtitle: '資工系畢業，到底值多少？',
-    color: '#1a73e8',
-    points: ['台灣薪資分布解析（D1–D9 十分位圖）', '資工系起薪 vs 全國中位數比較', '職涯晉升路徑與薪資天花板'],
+    title: "開始之前",
+    subtitle: "第一章：資工系畢業，到底值多少？",
+    color: "#1a73e8",
+    points: ["台灣薪資分布解析", "畢業薪水落在哪裡", "有哪些路可以走"],
   },
   {
-    title: '第二章：在學期間',
-    subtitle: '該學什麼、怎麼選專題、要不要升學？',
-    color: '#43a047',
-    points: ['六大職涯路線技能樹（可互動）', '專題選老師三大關鍵', '升學三條路：五年一貫、推甄、考試'],
+    title: "在學期間",
+    subtitle: "第二章：該學什麼、怎麼選專題、要不要升學？",
+    color: "#43a047",
+    points: ["選修怎麼選", "專題做什麼", "升學三條路"],
   },
   {
-    title: '第三章：畢業之後',
-    subtitle: 'AI 時代的生存指南',
-    color: '#fb8c00',
-    points: ['AI 會取代「只會寫程式」的人', '工具每 2-3 年換一輪', '強者更強的馬太效應', '四個具體建議'],
+    title: "畢業之後",
+    subtitle: "第三章：AI 時代的生存指南",
+    color: "#fb8c00",
+    points: ["不用急著 Vibe Coding"],
   },
-]
+];
 </script>
 
 <style scoped>
-.outline-slide {
-  background: #0a0e1a;
-  display: flex; align-items: center; justify-content: center;
+.outline-root {
+  padding: 0;
+  flex-direction: row;
+  overflow: hidden;
 }
-.outline-inner {
-  width: 100%; max-width: 100%;
-  padding: 40px 0;
-  display: flex; flex-direction: column; gap: 28px;
+
+/* 左側：填滿扣除圖片後的剩餘寬度 */
+.outline-left {
+  flex: 1;
+  min-width: 0;
+  padding: 2rem 2rem 2rem 2.5rem;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  min-height: 0;
 }
-.outline-title-block { text-align: center; }
-.outline-title-block h2 { font-size: 30px; color: #7eb3ff; letter-spacing: 2px; margin-bottom: 6px; }
-.outline-title-block p { font-size: 15px; color: #94a3b8; }
-.outline-chapters { display: flex; flex-direction: column; gap: 16px; }
+
+/* 右側圖片：不裁切、保持比例、貼齊上下 */
+.outline-right {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: stretch;
+}
+.outline-img {
+  height: 100%;
+  width: auto;
+  display: block;
+}
+
+/* 左側內容進場動畫 */
+.outline-left > * {
+  animation: slideInUp 0.75s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.outline-left > *:nth-child(1) {
+  animation-delay: 0.08s;
+}
+.outline-left > *:nth-child(2) {
+  animation-delay: 0.27s;
+}
+.outline-left > *:nth-child(3) {
+  animation-delay: 0.45s;
+}
+.outline-chapters {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  min-height: 0;
+  width: 95%;
+}
 .outline-chapter-card {
-  background: #1a2438; border-radius: 14px; padding: 20px 24px;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.4);
-  display: flex; gap: 20px; align-items: flex-start;
-  border-left: 5px solid var(--accent, #1a73e8);
+  flex: 1;
+  background: #1a2438;
+  border-radius: 0.75rem;
+  overflow: hidden;
+  box-shadow: 0 0.25rem 1.25rem rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
 }
-.oc-num { font-size: 36px; font-weight: 900; color: var(--accent, #1a73e8); opacity: 0.35; line-height: 1; min-width: 52px; }
-.oc-body { flex: 1; }
-.oc-title { font-size: 17px; font-weight: 700; color: var(--accent, #1a73e8); margin-bottom: 2px; }
-.oc-subtitle { font-size: 13px; color: #94a3b8; margin-bottom: 8px; }
-.oc-points { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 3px; }
-.oc-points li { font-size: 13px; color: #94a3b8; }
-.oc-points li::before { content: "• "; color: var(--accent); font-weight: 700; }
-.outline-footer { text-align: center; font-size: 13px; color: #4a5568; }
+.oc-header {
+  background: var(--accent, #1a73e8);
+  color: #fff;
+  font-size: 1.25rem;
+  font-weight: 700;
+  letter-spacing: 0.05rem;
+  padding: 0.4rem 1.25rem;
+  line-height: 1.4;
+}
+.oc-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 0 3rem;
+  justify-content: center;
+}
+.oc-title {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #e2e8f0;
+  margin-bottom: 0.5rem;
+  line-height: 1.4;
+}
+.oc-points {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+.oc-points li {
+  font-size: 1.25rem;
+  color: #94a3b8;
+  line-height: 1.5;
+  padding-left: 0.25rem;
+}
+.oc-points li::before {
+  content: "▸ ";
+  color: var(--accent);
+  font-weight: 700;
+}
 </style>

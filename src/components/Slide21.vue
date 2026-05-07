@@ -1,30 +1,58 @@
 <template>
   <div class="slide content-slide">
     <div class="slide-chapter-tag">第二章 2-1</div>
-    <h2 class="slide-title">📋 專題怎麼選老師？</h2>
-    <table>
-      <thead>
-        <tr><th style="width:8%">#</th><th style="width:22%">重點</th><th>說明</th></tr>
-      </thead>
-      <tbody>
-        <tr v-for="(item, i) in topicTips" :key="i">
-          <td>{{ i + 1 }}</td>
-          <td><strong>{{ item.title }}</strong></td>
-          <td>{{ item.desc }}</td>
-        </tr>
-      </tbody>
-    </table>
-    <div class="callout orange">
-      <strong>專題 ＝ 你大學四年最重要的作品 ＝ 履歷上的第一個代表作。</strong><br>
-      認真做，找工作時它會幫你一把。
+    <h2 class="slide-title">選修怎麼選</h2>
+    <p class="slide-lead">
+      不論是必修還是選修，只是為了讓你站上起跑線而已，剩下的還是要靠自己。
+    </p>
+    <div class="img-wrap">
+      <img
+        src="/114-1.png"
+        alt="資電工程組"
+        class="img clickable-img"
+        @click="lightboxSrc = '/114-1.png'"
+      />
+      <img
+        src="/114-2.png"
+        alt="人工智慧工組"
+        class="img clickable-img"
+        @click="lightboxSrc = '/114-2.png'"
+      />
     </div>
+    <div class="caption">資料來源：朝陽科技大學資訊工程系「課程規劃」</div>
+    <div class="callout orange">
+      盡量選擇相同領域的課程。</br>
+      亂選也是一種選擇
+    </div>
+    <ImageLightbox :src="lightboxSrc" @close="lightboxSrc = null" />
   </div>
 </template>
 
 <script setup>
-const topicTips = [
-  { title: '老師帶法', desc: '放養型 vs 手把手？先了解自己適合哪種，問現任學生最準。' },
-  { title: '學長姐評價', desc: '問過來人最準，不要只看表面，看最終成果與就業連結。' },
-  { title: '專題方向', desc: '是否跟你想走的職涯路線有關？專題作品將是面試時的加分。' },
-]
+import { ref } from "vue";
+import ImageLightbox from "./ImageLightbox.vue";
+const lightboxSrc = ref(null);
 </script>
+
+<style scoped>
+.img-wrap {
+  display: flex;
+  flex-direction: row;
+  gap: 1.25rem;
+  align-items: flex-start;
+}
+.img {
+  flex: 1;
+  min-width: 0;
+  max-height: 50vh;
+  width: 100%;
+  object-fit: contain;
+}
+.clickable-img {
+  cursor: zoom-in;
+  transition: opacity 0.15s;
+}
+.clickable-img:hover {
+  opacity: 0.85;
+}
+</style>
