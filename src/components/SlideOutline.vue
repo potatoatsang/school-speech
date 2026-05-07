@@ -153,4 +153,38 @@ const chapters = [
   color: var(--accent);
   font-weight: 700;
 }
+
+/* ---- Mobile RWD ---- */
+@media (max-width: 768px) {
+  .outline-root {
+    flex-direction: column;
+  }
+  .outline-right {
+    display: none;
+  }
+  .outline-left {
+    padding: 1.5rem 1.25rem;
+  }
+  .outline-chapters {
+    width: 100%;
+  }
+}
+@media (max-width: 480px) {
+  .outline-left {
+    padding: 1.25rem 1rem;
+  }
+  .oc-header {
+    font-size: 1rem;
+    padding: 0.35rem 1rem;
+  }
+  .oc-body {
+    padding: 0.25rem 1rem;
+  }
+  .oc-title {
+    font-size: 1rem;
+  }
+  .oc-points li {
+    font-size: 1rem;
+  }
+}
 </style>

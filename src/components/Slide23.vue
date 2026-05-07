@@ -46,7 +46,7 @@
 <script setup>
 const studyPaths = [
   {
-    title: "① 五年一貫",
+    title: "五年一貫",
     best: false,
     points: [
       "最快：1 年拿碩士",
@@ -56,7 +56,7 @@ const studyPaths = [
     ],
   },
   {
-    title: "② 推甄",
+    title: "推甄",
     best: false,
     points: [
       "成績前三名有機會",
@@ -66,7 +66,7 @@ const studyPaths = [
     ],
   },
   {
-    title: "③ 考試入學",
+    title: "考試入學",
     best: false,
     points: [
       "最公平、選擇最多",

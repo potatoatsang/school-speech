@@ -83,4 +83,37 @@
   width: auto;
   display: block;
 }
+
+/* ---- Mobile RWD ---- */
+@media (max-width: 768px) {
+  .chapter-root {
+    flex-direction: column;
+  }
+  .chapter-right {
+    display: none;
+  }
+  .chapter-left {
+    width: 100%;
+    padding: 2rem 1.75rem;
+  }
+  .chapter-title {
+    font-size: clamp(1.875rem, 5vw, 3rem);
+  }
+  .chapter-tag {
+    font-size: 1.5rem;
+    padding: 0.6rem 2rem;
+  }
+}
+@media (max-width: 480px) {
+  .chapter-left {
+    padding: 1.5rem 1.25rem;
+  }
+  .chapter-title {
+    font-size: clamp(1.5rem, 5.5vw, 2.25rem);
+  }
+  .chapter-tag {
+    font-size: 1.25rem;
+    padding: 0.5rem 1.5rem;
+  }
+}
 </style>

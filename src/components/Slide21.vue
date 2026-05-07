@@ -55,4 +55,14 @@ const lightboxSrc = ref(null);
 .clickable-img:hover {
   opacity: 0.85;
 }
+
+@media (max-width: 640px) {
+  .img-wrap {
+    flex-direction: column;
+  }
+  .img {
+    max-height: 32vh;
+    width: 100%;
+  }
+}
 </style>

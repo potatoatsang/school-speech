@@ -62,4 +62,22 @@ blockquote {
   margin-top: 32px;
   line-height: 2;
 }
+
+@media (max-width: 768px) {
+  .big {
+    font-size: clamp(2rem, 6vw, 3.5rem);
+  }
+  .small {
+    font-size: 1.25rem;
+  }
+}
+@media (max-width: 480px) {
+  .big {
+    font-size: clamp(1.625rem, 7vw, 2.5rem);
+  }
+  .small {
+    font-size: 1.125rem;
+    margin-top: 1.25rem;
+  }
+}
 </style>

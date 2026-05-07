@@ -611,7 +611,18 @@ tbody tr:nth-child(even) {
    ========================================== */
 @media (max-width: 768px) {
   .slide {
-    padding: 28px 20px;
+    padding: 3.5rem 1.25rem 1.5rem;
+  }
+  .slide-title {
+    font-size: clamp(1.375rem, 4vw, 2rem);
+    margin-bottom: 0.75rem;
+  }
+  .slide-lead {
+    font-size: 1.125rem;
+    margin-bottom: 0.75rem;
+  }
+  .slide-chapter-tag {
+    margin-bottom: 0.625rem;
   }
   .cards {
     flex-direction: column;
@@ -622,6 +633,38 @@ tbody tr:nth-child(even) {
   .position-track {
     grid-template-columns: repeat(2, 1fr);
   }
+  table {
+    font-size: 1rem;
+    display: block;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  th,
+  td {
+    padding: 0.5rem 0.75rem;
+    white-space: nowrap;
+  }
+  .callout {
+    font-size: 1rem;
+    padding: 0.75rem 1rem;
+  }
+  .branch {
+    font-size: 1.125rem;
+    padding: 0.625rem 1rem;
+    min-width: 7rem;
+  }
+  .skill-tree .root {
+    font-size: 1.375rem;
+  }
+  .sdp-title {
+    font-size: 1.25rem;
+  }
+  .sdp-tagline {
+    font-size: 1rem;
+  }
+  .sdp-content {
+    font-size: 1rem;
+  }
   .nav {
     right: 8px;
     top: 8px;
@@ -629,6 +672,47 @@ tbody tr:nth-child(even) {
   }
   .slide-footer {
     padding: 0 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .slide {
+    padding: 3rem 1rem 1rem;
+  }
+  .slide-title {
+    font-size: clamp(1.25rem, 5vw, 1.625rem);
+    padding-left: 0.75rem;
+    border-left-width: 4px;
+    margin-bottom: 0.5rem;
+  }
+  .slide-lead {
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+  }
+  .position-track {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.5rem;
+  }
+  .pos-title {
+    font-size: 1rem;
+  }
+  .pos-salary {
+    font-size: 1.125rem;
+  }
+  .pos-decile {
+    font-size: 1rem;
+  }
+  .pos-years {
+    font-size: 1rem;
+  }
+  .branch {
+    font-size: 1rem;
+    padding: 0.5rem 0.875rem;
+    min-width: 6rem;
+  }
+  .skill-tree .root {
+    font-size: 1.25rem;
+    padding: 0.5rem 1.5rem;
   }
 }
 

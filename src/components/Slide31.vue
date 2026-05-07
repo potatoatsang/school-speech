@@ -82,4 +82,24 @@ const timeline = [
   color: #2a3a58;
   margin: 0 10px;
 }
+
+@media (max-width: 640px) {
+  .timeline {
+    padding: 12px 8px;
+    gap: 0;
+    row-gap: 0.75rem;
+  }
+  .era-period {
+    font-size: 1rem;
+    padding: 8px 10px;
+  }
+  .era-tools {
+    font-size: 1rem;
+    padding: 6px 8px;
+    margin-left: 6px;
+  }
+  .era-arrow {
+    display: none;
+  }
+}
 </style>

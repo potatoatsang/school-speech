@@ -1,5 +1,9 @@
 <template>
-  <div class="nfp-root">
+  <div
+    class="nfp-root"
+    @touchstart.passive="onTouchStart"
+    @touchend.passive="onTouchEnd"
+  >
     <!-- Main content area (current slide) -->
     <div class="nfp-screen">
       <div class="nfp-slide-panel">
@@ -150,6 +154,30 @@ const emit = defineEmits(["exit", "prev", "next"]);
 
 const controlsVisible = ref(false);
 let hideTimer = null;
+
+function showControls(autohide = true) {
+  clearTimeout(hideTimer);
+  controlsVisible.value = true;
+  if (autohide) {
+    hideTimer = setTimeout(() => {
+      controlsVisible.value = false;
+    }, 3000);
+  }
+}
+
+// Touch swipe support
+const touchStartX = ref(0);
+function onTouchStart(e) {
+  touchStartX.value = e.touches[0].clientX;
+  showControls();
+}
+function onTouchEnd(e) {
+  const deltaX = e.changedTouches[0].clientX - touchStartX.value;
+  if (Math.abs(deltaX) > 50) {
+    if (deltaX < 0) emit("next");
+    else emit("prev");
+  }
+}
 
 function onEnter() {
   clearTimeout(hideTimer);
